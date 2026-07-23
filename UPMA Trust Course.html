@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sound Money, Real Structure — The UPMA Case Study | Block Wall Street</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-950:#060b18;
+  --navy-900:#0a1428;
+  --navy-800:#0f1d38;
+  --navy-700:#16294d;
+  --navy-600:#1f3763;
+  --gold:#d4a935;
+  --gold-bright:#f0c75e;
+  --gold-dim:#8a6f24;
+  --cream:#f2ead7;
+  --ink:#dfe6f2;
+  --ink-dim:#9aa8c2;
+  --red:#e0564f;
+  --green:#4fc98a;
+  --mono:'DM Mono',monospace;
+  --display:'Bebas Neue',sans-serif;
+  --body:'Barlow',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--navy-950);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--gold);color:var(--navy-950)}
+
+/* ---------- progress bar ---------- */
+#progressBar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold-dim),var(--gold-bright));width:0%;z-index:1000;transition:width .15s linear}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:88vh;display:flex;flex-direction:column;justify-content:center;
+  padding:8vh 6vw 6vh;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 90% 60% at 75% 15%,rgba(212,169,53,.10),transparent 60%),
+    linear-gradient(180deg,var(--navy-900),var(--navy-950));
+  border-bottom:1px solid rgba(212,169,53,.25);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,var(--gold) 39px,var(--gold) 40px),
+                   repeating-linear-gradient(90deg,transparent,transparent 39px,var(--gold) 39px,var(--gold) 40px);
+}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
+.hero h1{
+  font-family:var(--display);font-size:clamp(3rem,9vw,7.2rem);line-height:.95;
+  color:var(--cream);letter-spacing:.015em;max-width:14ch;
+}
+.hero h1 .g{color:var(--gold-bright)}
+.hero .sub{max-width:62ch;margin-top:1.6rem;color:var(--ink-dim);font-size:1.06rem;font-weight:300}
+.hero .sub strong{color:var(--ink);font-weight:600}
+.hero-meta{display:flex;gap:2.4rem;flex-wrap:wrap;margin-top:2.6rem;font-family:var(--mono);font-size:.75rem;color:var(--ink-dim)}
+.hero-meta span b{display:block;color:var(--gold);font-size:1.35rem;font-weight:400}
+.disclaimer{
+  margin-top:2.6rem;max-width:70ch;border-left:3px solid var(--red);
+  padding:.9rem 1.1rem;background:rgba(224,86,79,.07);font-size:.85rem;color:var(--ink-dim);
+}
+.disclaimer b{color:var(--red)}
+
+/* ---------- nav / TOC ---------- */
+.toc{padding:4rem 6vw;border-bottom:1px solid rgba(212,169,53,.15);background:var(--navy-900)}
+.toc h2{font-family:var(--display);font-size:1.7rem;color:var(--gold);letter-spacing:.05em;margin-bottom:1.4rem}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.7rem}
+.toc a{
+  display:flex;gap:.9rem;align-items:baseline;text-decoration:none;color:var(--ink);
+  padding:.85rem 1rem;border:1px solid rgba(212,169,53,.18);background:var(--navy-800);
+  transition:border-color .2s,transform .2s;
+}
+.toc a:hover{border-color:var(--gold);transform:translateX(4px)}
+.toc a .n{font-family:var(--mono);color:var(--gold);font-size:.8rem;min-width:2ch}
+.toc a .done{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--green);opacity:0;transition:opacity .2s}
+.toc a.completed .done{opacity:1}
+
+/* ---------- sections ---------- */
+section.lesson{padding:5.5rem 6vw;max-width:1060px;margin:0 auto}
+section.lesson + section.lesson{border-top:1px solid rgba(212,169,53,.12)}
+.sec-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.7rem}
+section.lesson h2{
+  font-family:var(--display);font-size:clamp(2.1rem,4.5vw,3.4rem);color:var(--cream);
+  letter-spacing:.02em;line-height:1;margin-bottom:.5rem;
+}
+.thesis{font-size:1.12rem;color:var(--gold-bright);font-weight:500;max-width:64ch;margin:1rem 0 2.2rem;border-left:3px solid var(--gold);padding-left:1.1rem}
+section.lesson h3{
+  font-family:var(--display);font-size:1.45rem;color:var(--gold);letter-spacing:.04em;
+  margin:2.6rem 0 .8rem;
+}
+section.lesson p{max-width:72ch;margin-bottom:1.05rem;color:var(--ink);font-weight:300}
+section.lesson p b,section.lesson li b{font-weight:600;color:var(--cream)}
+section.lesson ul,section.lesson ol{max-width:70ch;margin:0 0 1.2rem 1.3rem}
+section.lesson li{margin-bottom:.55rem;font-weight:300}
+.callout{
+  border:1px solid rgba(212,169,53,.35);background:var(--navy-800);
+  padding:1.3rem 1.5rem;margin:1.8rem 0;max-width:76ch;
+}
+.callout .co-tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.callout.warn{border-color:rgba(224,86,79,.5);background:rgba(224,86,79,.06)}
+.callout.warn .co-tag{color:var(--red)}
+.callout p:last-child{margin-bottom:0}
+.vocab{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.8rem;margin:1.6rem 0 2rem;
+}
+.vcard{border:1px solid rgba(212,169,53,.22);background:var(--navy-800);padding:1rem 1.1rem}
+.vcard .term{font-family:var(--mono);color:var(--gold-bright);font-size:.85rem;margin-bottom:.35rem}
+.vcard .def{font-size:.88rem;color:var(--ink-dim);line-height:1.5}
+table.data{width:100%;border-collapse:collapse;margin:1.5rem 0 2rem;font-size:.92rem}
+table.data th{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);text-align:left;padding:.6rem .8rem;border-bottom:2px solid var(--gold-dim);
+}
+table.data td{padding:.6rem .8rem;border-bottom:1px solid rgba(212,169,53,.12);color:var(--ink);font-weight:300}
+table.data td.mono{font-family:var(--mono);font-size:.82rem;color:var(--gold-bright)}
+.gate-stack{margin:1.8rem 0;max-width:76ch}
+.gate{
+  display:flex;gap:1rem;align-items:baseline;border:1px solid rgba(212,169,53,.2);
+  border-left:4px solid var(--gold);background:var(--navy-800);padding:.85rem 1.1rem;margin-bottom:.5rem;
+}
+.gate .gn{font-family:var(--mono);color:var(--gold);font-size:.8rem;min-width:2.2ch}
+.gate .gt{font-weight:600;color:var(--cream)}
+.gate .gd{color:var(--ink-dim);font-size:.9rem;font-weight:300}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;max-width:80ch}
+.compare .col{border:1px solid rgba(212,169,53,.22);background:var(--navy-800);padding:1.2rem 1.3rem}
+.compare .col h4{font-family:var(--mono);font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.compare .col.bad h4{color:var(--red)}
+.compare .col ul{margin-left:1.1rem}
+.compare .col li{font-size:.9rem;margin-bottom:.45rem}
+@media(max-width:720px){.compare{grid-template-columns:1fr}}
+
+/* ---------- entity mapper ---------- */
+.mapper{border:1px solid rgba(212,169,53,.3);background:var(--navy-800);padding:1.6rem;margin:2rem 0}
+.mapper h4{font-family:var(--display);font-size:1.3rem;color:var(--gold);letter-spacing:.04em;margin-bottom:.4rem}
+.mapper .mhint{font-size:.85rem;color:var(--ink-dim);margin-bottom:1.2rem}
+.m-func{margin-bottom:.9rem}
+.m-func .fq{font-weight:600;color:var(--cream);font-size:.95rem;margin-bottom:.5rem}
+.m-opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.m-opt{
+  font-family:var(--mono);font-size:.78rem;padding:.45rem .8rem;cursor:pointer;
+  border:1px solid rgba(212,169,53,.3);background:var(--navy-700);color:var(--ink);
+  transition:all .15s;user-select:none;
+}
+.m-opt:hover{border-color:var(--gold)}
+.m-opt.correct{background:rgba(79,201,138,.15);border-color:var(--green);color:var(--green)}
+.m-opt.wrong{background:rgba(224,86,79,.12);border-color:var(--red);color:var(--red)}
+.m-opt.disabled{pointer-events:none;opacity:.45}
+.m-opt.disabled.correct,.m-opt.disabled.wrong{opacity:1}
+.m-explain{font-size:.83rem;color:var(--ink-dim);margin-top:.45rem;display:none;padding-left:.2rem}
+.m-explain.show{display:block}
+#mapperScore{font-family:var(--mono);font-size:.85rem;color:var(--gold);margin-top:1rem}
+
+/* ---------- quiz ---------- */
+.quiz{
+  margin-top:3.4rem;border:1px solid var(--gold-dim);background:var(--navy-900);
+  padding:2rem 1.8rem;position:relative;
+}
+.quiz::before{
+  content:"KNOWLEDGE CHECK";position:absolute;top:-11px;left:1.4rem;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.3em;color:var(--gold);
+  background:var(--navy-950);padding:0 .7rem;
+}
+.q-item{margin-bottom:1.7rem}
+.q-item .q-text{font-weight:600;color:var(--cream);margin-bottom:.7rem;font-size:.98rem}
+.q-item .q-text .qn{font-family:var(--mono);color:var(--gold);margin-right:.5rem;font-weight:400}
+.q-opts{display:grid;gap:.45rem}
+.q-opt{
+  text-align:left;font-family:var(--body);font-size:.92rem;font-weight:300;color:var(--ink);
+  background:var(--navy-800);border:1px solid rgba(212,169,53,.18);padding:.7rem .95rem;
+  cursor:pointer;transition:all .15s;
+}
+.q-opt:hover{border-color:var(--gold)}
+.q-opt.sel-correct{border-color:var(--green);background:rgba(79,201,138,.1);color:var(--green)}
+.q-opt.sel-wrong{border-color:var(--red);background:rgba(224,86,79,.08);color:var(--red)}
+.q-opt.reveal{border-color:var(--green);color:var(--green)}
+.q-opt:disabled{cursor:default}
+.q-fb{font-size:.84rem;color:var(--ink-dim);margin-top:.55rem;display:none;border-left:2px solid var(--gold-dim);padding-left:.8rem}
+.q-fb.show{display:block}
+.quiz-result{
+  display:none;margin-top:1.4rem;padding:1rem 1.2rem;border:1px solid var(--gold);
+  font-family:var(--mono);font-size:.92rem;color:var(--gold-bright);
+}
+.quiz-result.show{display:block}
+.quiz-reset{
+  margin-top:1rem;font-family:var(--mono);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;
+  background:none;border:1px solid rgba(212,169,53,.4);color:var(--gold);padding:.55rem 1.1rem;cursor:pointer;
+}
+.quiz-reset:hover{background:var(--gold);color:var(--navy-950)}
+
+/* ---------- footer ---------- */
+footer{
+  padding:4.5rem 6vw;border-top:1px solid rgba(212,169,53,.25);background:var(--navy-900);
+  text-align:center;
+}
+footer .f-mark{font-family:var(--display);font-size:2rem;color:var(--gold);letter-spacing:.08em}
+footer p{color:var(--ink-dim);font-size:.85rem;max-width:70ch;margin:.8rem auto 0;font-weight:300}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.toc a,.q-opt,.m-opt{transition:none}}
+@media(max-width:640px){
+  body{font-size:16px}
+  section.lesson{padding:3.5rem 5vw}
+  .quiz{padding:1.5rem 1.1rem}
+}
+</style>
+</head>
+<body>
+<div id="progressBar"></div>
+
+<header class="hero">
+  <div class="eyebrow">Block Wall Street &middot; Sound Money Structures Series</div>
+  <h1>Sound Money,<br>Real <span class="g">Structure</span></h1>
+  <p class="sub">A complete case study of the <strong>United Precious Metals Association</strong> — how a private gold &amp; silver monetary network actually works, from constitutional theory to trust law to fee schedules — and how to read <em>any</em> financial system's documents like your wealth depends on it. Because it does.</p>
+  <div class="hero-meta">
+    <span><b>10</b>Sections</span>
+    <span><b>50</b>Quiz Questions</span>
+    <span><b>23</b>Source Documents</span>
+    <span><b>1</b>Rule: Trust the Paper</span>
+  </div>
+  <div class="disclaimer"><b>Education, not advice.</b> This course is analysis for learning purposes only — not legal, tax, or investment advice. UPMA, Goldback, Alpine Gold, Legal Tender Services, and True Link are named for educational case-study purposes. Verify everything against current primary documents and consult independent professionals before acting.</div>
+</header>
+
+<nav class="toc" id="toc">
+  <h2>Course Map</h2>
+  <div class="toc-grid">
+    <a href="#s1"><span class="n">01</span>Foundations of Trust<span class="done">&#10003; DONE</span></a>
+    <a href="#s2"><span class="n">02</span>The Constitutional Case<span class="done">&#10003; DONE</span></a>
+    <a href="#s3"><span class="n">03</span>Intent &amp; Gold Clauses<span class="done">&#10003; DONE</span></a>
+    <a href="#s4"><span class="n">04</span>Who Holds the Keys<span class="done">&#10003; DONE</span></a>
+    <a href="#s5"><span class="n">05</span>How the Network Runs<span class="done">&#10003; DONE</span></a>
+    <a href="#s6"><span class="n">06</span>Fees, Premiums &amp; Gates<span class="done">&#10003; DONE</span></a>
+    <a href="#s7"><span class="n">07</span>Leases &amp; the GoldELOC<span class="done">&#10003; DONE</span></a>
+    <a href="#s8"><span class="n">08</span>Privacy &amp; Succession<span class="done">&#10003; DONE</span></a>
+    <a href="#s9"><span class="n">09</span>The Tax Boundary<span class="done">&#10003; DONE</span></a>
+    <a href="#s10"><span class="n">10</span>Documents vs. Folklore<span class="done">&#10003; DONE</span></a>
+  </div>
+</nav>
+
+<!-- ============ SECTION 1 ============ -->
+<section class="lesson" id="s1">
+  <div class="sec-label">Section 01</div>
+  <h2>Foundations of Trust</h2>
+  <p class="thesis">Before you can judge any monetary system — gold vault or blockchain — you have to answer one question: when you "own" something inside it, what do you actually hold?</p>
+
+  <h3>Custody vs. Credit: The Only Distinction That Matters</h3>
+  <p>Every financial arrangement in history sorts into two buckets. In a <b>custody</b> relationship, an asset is held <em>for</em> you — segregated, titled to you, returnable on demand. If the custodian fails, the asset is still yours; creditors can't touch it. In a <b>credit</b> relationship, you've handed the asset over and received a <em>promise</em> in return. You are now a creditor. If the counterparty fails, you stand in line.</p>
+  <p>The danger is that both feel identical on a screen. A number in an app looks the same whether it represents allocated metal in a vault or an IOU from a company that lent your metal out. Celsius depositors in 2022 learned this in bankruptcy court: "my coins earning yield" turned out to mean "unsecured loans to a failed lender." The same distinction has destroyed gold depositors for centuries — it's why goldsmith receipts became fractional reserve banking became bank runs.</p>
+
+  <h3>The Legal Machinery: Trusts, Trustees, and Escrow</h3>
+  <p>A <b>trust</b> is the oldest custody technology in Anglo-American law. One party (the <b>grantor</b> or settlor) transfers assets to a <b>trustee</b>, who holds legal title but must manage the assets for the <b>beneficiary</b>'s benefit under a fiduciary duty — the highest duty the law imposes. A <b>revocable grantor trust</b> can be amended or dissolved by the grantor at any time; for tax purposes the grantor is still treated as the owner. An <b>irrevocable trust</b> is a one-way door: assets leave the grantor's estate and control.</p>
+  <p>An <b>escrow agent</b> is a neutral third party who holds assets mid-transaction and releases them only when conditions are met. Escrow is transactional custody; a trust is standing custody. Sophisticated systems chain them: money enters through escrow, converts, then rests in trust.</p>
+
+  <div class="vocab">
+    <div class="vcard"><div class="term">GRANTOR</div><div class="def">The person who creates and funds a trust. In a revocable trust, retains full control and tax ownership.</div></div>
+    <div class="vcard"><div class="term">TRUSTEE</div><div class="def">Holds legal title and administers trust assets under fiduciary duty — the highest standard of care in law.</div></div>
+    <div class="vcard"><div class="term">FIDUCIARY DUTY</div><div class="def">Obligation to act solely in the beneficiary's interest: loyalty, care, no self-dealing without disclosure and consent.</div></div>
+    <div class="vcard"><div class="term">ESCROW AGENT</div><div class="def">Neutral holder of assets during a transaction; releases only when agreed conditions are satisfied.</div></div>
+    <div class="vcard"><div class="term">ALLOCATED</div><div class="def">Specific assets titled to you and segregated. Custodian failure doesn't touch them.</div></div>
+    <div class="vcard"><div class="term">UNALLOCATED</div><div class="def">A claim against a pool or against the dealer's balance sheet. You are a creditor, not an owner.</div></div>
+  </div>
+
+  <h3>Why Concentration of Roles Matters</h3>
+  <p>Trust law works because roles check each other: the trustee answers to beneficiaries, auditors verify the trustee, courts enforce the duty. When one party plays multiple roles — drafter of the documents, trustee of the assets, counsel to the organization, owner of the service providers — the checks collapse into disclosures and waivers. That isn't automatically fraud; disclosed concentration is legal and common. But it converts <em>structural</em> protection into <em>reputational</em> protection, and the reader of the documents needs to know which one they're relying on.</p>
+
+  <div class="callout">
+    <div class="co-tag">The BWS Rule</div>
+    <p>In crypto we say <b>"don't trust, verify"</b> and <b>"not your keys, not your coins."</b> Traditional finance has the same rules in older language: <b>read the trust instrument, identify the trustee, and ask who holds your asset when things go wrong.</b> Custody vs. credit is not an asset-class question. It's the question, for every asset class.</p>
+  </div>
+
+  <div class="quiz" data-quiz="q1">
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">1.1</span>You deposit gold with a firm that promises "your gold, plus 3% yield." The firm lends your gold to fund its operations. What do you now hold?</div>
+      <div class="q-opts">
+        <button class="q-opt">Allocated gold with extra income</button>
+        <button class="q-opt">A credit claim against the firm — you are its creditor</button>
+        <button class="q-opt">A fiduciary trust interest in specific coins</button>
+        <button class="q-opt">Legal tender</button>
+      </div>
+      <div class="q-fb">Yield for possession = custody converted to credit. If the firm fails, you stand in the creditor line. The 2022 crypto lenders and centuries of goldsmith banking both prove the pattern.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">1.2</span>What is the defining feature of a revocable grantor trust?</div>
+      <div class="q-opts">
+        <button class="q-opt">Assets permanently leave the grantor's estate</button>
+        <button class="q-opt">Only a court can amend it</button>
+        <button class="q-opt">The grantor can alter or revoke it at any time and is treated as the owner for tax purposes</button>
+        <button class="q-opt">It requires no trustee</button>
+      </div>
+      <div class="q-fb">Revocable = grantor keeps control and tax ownership. It organizes and titles assets; it does not shield them from the grantor's taxes or creditors the way an irrevocable trust can.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">1.3</span>Which situation preserves the strongest structural protection for the asset owner?</div>
+      <div class="q-opts">
+        <button class="q-opt">Independent trustee, arm's-length vault, third-party audits, allocated title</button>
+        <button class="q-opt">The seller of the asset also custodies it, with insurance</button>
+        <button class="q-opt">A trustee who also drafted the documents and owns the vault operator, with a conflict waiver</button>
+        <button class="q-opt">A very reputable company holding a pooled balance</button>
+      </div>
+      <div class="q-fb">Separated roles check each other. Every other option replaces structural checks with disclosure, waivers, or reputation — which can be acceptable, but is weaker, and you should know you've made that trade.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">1.4</span>Why is "unallocated" a loaded word in precious metals?</div>
+      <div class="q-opts">
+        <button class="q-opt">It means the metal hasn't been assayed</button>
+        <button class="q-opt">It refers to coins with no mint year</button>
+        <button class="q-opt">It's slang for junk silver</button>
+        <button class="q-opt">It traditionally means a claim on the dealer rather than title to specific metal — creditor status, not ownership</button>
+      </div>
+      <div class="q-fb">Allocated vs. unallocated is the metals version of self-custody vs. exchange balance. A fully-reserved fungible pool is different from a true unallocated claim — but the burden is on the documents to prove which one you have.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">1.5</span>The crypto principle "not your keys, not your coins" maps to which trust-law question?</div>
+      <div class="q-opts">
+        <button class="q-opt">What is the asset's market price?</button>
+        <button class="q-opt">Who holds legal title and control of the asset when the intermediary fails?</button>
+        <button class="q-opt">Is the asset legal tender?</button>
+        <button class="q-opt">How fast can I sell?</button>
+      </div>
+      <div class="q-fb">Both traditions ask the identical question: in failure, is the asset yours or are you in line? Custody vs. credit — the only distinction that matters.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 ============ -->
+<section class="lesson" id="s2">
+  <div class="sec-label">Section 02</div>
+  <h2>The Constitutional Case for Specie</h2>
+  <p class="thesis">UPMA's entire architecture rests on a 235-year-old carve-out: states can't coin money — but the Constitution explicitly names the one thing they CAN make legal tender.</p>
+
+  <h3>Article I: A Prohibition With a Door In It</h3>
+  <p>Article I, Section 10 says no state shall "coin Money" nor "make any Thing but gold and silver Coin a Tender in Payment of Debts." Read one way, it's pure prohibition. Read carefully, it's an affirmative grant: gold and silver coin are the <b>single exception</b> — the one form of money states retain constitutional authority over. Section 8 gives Congress the coining power; Section 10 leaves states the specie-tender lane. Vertical checks and balances, applied to money itself.</p>
+
+  <h3>Lane County v. Oregon (1868): The Load-Bearing Precedent</h3>
+  <p>During the greenback era, Oregon required taxes paid in gold and silver coin. The Supreme Court upheld it: a state's power to specify what it accepts for taxes is an <b>original power, never surrendered</b> to the federal government. Every modern specie legal tender statute stands on this case — and every specie tax payment to a state is a live exercise of it.</p>
+
+  <h3>The Modern Wave</h3>
+  <p>Utah's <b>Specie Legal Tender Act (2011)</b> recognized U.S.-minted gold and silver coin as legal tender in Utah and, in 2012, exempted specie transactions from state sales tax — treating a coin-for-goods exchange as currency use, not a property sale. Arizona, Colorado, Missouri, Oklahoma, and Wyoming followed with their own recognition statutes, and the movement has kept expanding: dozens of states have since removed sales taxes on bullion, several have exempted specie gains from state income tax, and Texas built a state bullion depository. UPMA was founded in direct response to the Utah act — the association is the operating layer built on the statute.</p>
+
+  <div class="callout">
+    <div class="co-tag">Digital Asset Parallel</div>
+    <p>This is the same playbook as state-level Bitcoin reserve bills and crypto tax carve-outs: <b>when the federal monetary layer is closed to change, innovation routes through federalism.</b> Lane County — a state choosing what it accepts for taxes — is the same legal principle behind Colorado accepting crypto for tax payments today.</p>
+  </div>
+
+  <div class="callout warn">
+    <div class="co-tag">The Hard Boundary</div>
+    <p>State recognition changes <b>state</b> treatment only. Federally, the IRS classifies gold coins as property (collectibles) — spending appreciated specie is a taxable disposition at fair market value no matter what any state statute calls it. Section 09 covers exactly where this line sits and what happens to people who cross it.</p>
+  </div>
+
+  <div class="quiz" data-quiz="q2">
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">2.1</span>What does Article I, Section 10 actually permit states to do?</div>
+      <div class="q-opts">
+        <button class="q-opt">Coin their own money</button>
+        <button class="q-opt">Issue paper currency backed by gold</button>
+        <button class="q-opt">Make gold and silver coin legal tender — the sole exception to the tender prohibition</button>
+        <button class="q-opt">Nothing; monetary power is exclusively federal</button>
+      </div>
+      <div class="q-fb">Coining stays with Congress (Sec. 8). But the tender clause's own text carves out gold and silver coin as the one thing states may make legal tender.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">2.2</span>Lane County v. Oregon (1868) established that:</div>
+      <div class="q-opts">
+        <button class="q-opt">Greenbacks are unconstitutional</button>
+        <button class="q-opt">A state's power to specify what it accepts for taxes is an original, never-surrendered state power</button>
+        <button class="q-opt">Gold clauses in contracts are void</button>
+        <button class="q-opt">The IRS must accept gold at face value</button>
+      </div>
+      <div class="q-fb">Oregon could demand gold and silver for taxes even in the greenback era. This is the precedent every modern specie legal tender law is built on.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">2.3</span>What practical friction did Utah's 2012 sales-tax provision remove for specie users?</div>
+      <div class="q-opts">
+        <button class="q-opt">State sales tax treatment of specie transactions as taxable property sales</button>
+        <button class="q-opt">Federal capital gains tax on gold</button>
+        <button class="q-opt">Bank reporting requirements</button>
+        <button class="q-opt">Coin dealer licensing</button>
+      </div>
+      <div class="q-fb">At the state level, spending specie stopped being a taxed property disposition. Critically, this changed nothing at the federal level.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">2.4</span>Why was UPMA founded when it was?</div>
+      <div class="q-opts">
+        <button class="q-opt">In response to the 2008 financial crisis</button>
+        <button class="q-opt">To sell Goldbacks nationally</button>
+        <button class="q-opt">After the 1977 gold clause revival</button>
+        <button class="q-opt">As the operating layer for Utah's 2011 Specie Legal Tender Act</button>
+      </div>
+      <div class="q-fb">Statute first, infrastructure second. The 2011 Utah act created the legal category; UPMA was organized to make it usable in daily life.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">2.5</span>The closest digital-asset parallel to the state specie movement is:</div>
+      <div class="q-opts">
+        <button class="q-opt">Bitcoin ETF approval</button>
+        <button class="q-opt">Stablecoin regulation</button>
+        <button class="q-opt">State-level crypto legislation — reserve bills, tax carve-outs, and accepting crypto for state taxes</button>
+        <button class="q-opt">CBDC pilots</button>
+      </div>
+      <div class="q-fb">Both are monetary innovation routing through federalism when the federal layer won't move. Same strategy, different asset.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 ============ -->
+<section class="lesson" id="s3">
+  <div class="sec-label">Section 03</div>
+  <h2>The Intent Doctrine &amp; Gold Clauses</h2>
+  <p class="thesis">The same coin can be money or property — and which one it is depends on what you're doing with it. That functional test is the intellectual heart of the entire system.</p>
+
+  <h3>Thorne: Use Determines Character</h3>
+  <p>In <b>Thorne &amp; Wilson v. Utah State Tax Commission (1984)</b>, following Michigan National Bank v. Dept. of Treasury, the Utah Supreme Court drew a line that still governs: coins transferred <b>as a medium of exchange</b> remain money (intangible — no sales tax; you can't be taxed for buying money with money). Coins transferred <b>as an investment commodity</b> become tangible personal property, and the sale is taxable. Remarkably, Thorne applied this even to Krugerrands — foreign coins with no U.S. legal tender status — during an era when the U.S. wasn't minting specie tender at all. Monetary character came from <em>use and intent</em>, not from a statute.</p>
+  <p>The doctrine cuts both ways. In <b>U.S. ex rel. Holbrook v. Brink's (2015)</b>, coins that nominally <em>were</em> legal tender lost monetary status because they were traded on their metal value rather than used as tender. Face value matters less than transactional behavior.</p>
+  <p><b>Why this shapes UPMA's design:</b> every feature that makes specie <em>circulate</em> — peer-to-peer transfers, merchant payments, tax payments at 0% fee, dues denominated in gold cents — also manufactures an evidentiary record of monetary use. The network isn't just a product; it's a standing argument that its members' specie is money-in-use under the Thorne test.</p>
+
+  <h3>Gold Clauses: Contracting Out of "A Dollar Is a Dollar"</h3>
+  <p>Federal law is <b>nominalist</b>: for paying ordinary debts, "a dollar is a dollar regardless of the physical embodiment" (Crummey v. Klein, 5th Cir. 2008, following Thompson v. Butler, 1878). Tender a $50 Gold Eagle against a debt and it discharges exactly $50 — the courts have never let anyone monetize the face-value gap, in either direction.</p>
+  <p>But parties can <b>contract out</b> of nominalism. The post-Civil War Supreme Court (Bronson v. Rodes, Butler v. Horwitz, 1869) enforced contracts requiring payment in gold coin. Congress voided such "gold clauses" in 1933 mid-devaluation — then quietly re-legalized them for obligations entered after <b>October 27, 1977</b> (31 U.S.C. § 5118). Modern courts enforce them with teeth: the Sixth Circuit's 216 Jamaica Avenue case (2008) revived a 1912 lease's gold clause and multiplied the rent obligation.</p>
+  <p>UPMA embeds a gold clause into every member-to-member transaction on its exchange: settlement in Gold Dollars first, then Silver Dollars. Every internal sale is a statutorily protected specie obligation — and one more entry in the monetary-use record.</p>
+
+  <div class="callout">
+    <div class="co-tag">The Reframe That Matters</div>
+    <p>The gap between a Gold Eagle's $50 face and its ~$4,000+ market value is not a loophole. It is the <b>measurement of the argument</b> — a running, quantified record of the paper dollar's lost purchasing power. The gap is the thesis, not the trade. Anyone who tells you it's a tax trade is walking you into Section 09.</p>
+  </div>
+
+  <div class="quiz" data-quiz="q3">
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">3.1</span>Under Thorne, what determines whether a coin transaction is taxed as a property sale?</div>
+      <div class="q-opts">
+        <button class="q-opt">The coin's country of origin</button>
+        <button class="q-opt">Whether the coin was transferred as a medium of exchange or as an investment commodity</button>
+        <button class="q-opt">The coin's face value</button>
+        <button class="q-opt">Whether the buyer is a dealer</button>
+      </div>
+      <div class="q-fb">A functional test: use as money = intangible, untaxed exchange. Use as commodity = tangible property, taxable sale. Same coin, different character.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">3.2</span>What happened to gold clauses in 1933 and 1977?</div>
+      <div class="q-opts">
+        <button class="q-opt">Legalized in 1933, banned in 1977</button>
+        <button class="q-opt">Banned in both years</button>
+        <button class="q-opt">Voided by Congress in 1933; re-legalized for new obligations after October 27, 1977</button>
+        <button class="q-opt">They have never been enforceable</button>
+      </div>
+      <div class="q-fb">The 1933 Joint Resolution killed them during devaluation; a quiet 1977 amendment revived them. For nearly fifty years it has been legal to contract for payment in gold — a right almost nobody uses.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">3.3</span>In Crummey v. Klein, the sound-money litigant argued his gold coins should be credited at market value. The court:</div>
+      <div class="q-opts">
+        <button class="q-opt">Rejected it — a $50 Eagle satisfies exactly $50 of obligation, regardless of embodiment</button>
+        <button class="q-opt">Agreed and credited melt value</button>
+        <button class="q-opt">Ruled gold is not legal tender</button>
+        <button class="q-opt">Referred the case to the IRS</button>
+      </div>
+      <div class="q-fb">Nominalism consistently defeats attempts to exploit the face-value gap — in both directions. Tender at face; taxed at market. The asymmetry is the trap.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">3.4</span>Why does UPMA design features like 0%-fee tax payments and gold-denominated dues?</div>
+      <div class="q-opts">
+        <button class="q-opt">Pure marketing</button>
+        <button class="q-opt">Federal law requires it</button>
+        <button class="q-opt">To reduce operating costs</button>
+        <button class="q-opt">Each circulating use builds the evidentiary record of monetary intent under the Thorne test</button>
+      </div>
+      <div class="q-fb">The architecture is designed to win a functional legal test. Circulation isn't just the mission — it's the evidence.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">3.5</span>The honest way to describe the gap between a Gold Eagle's face value and market value:</div>
+      <div class="q-opts">
+        <button class="q-opt">A tax planning opportunity</button>
+        <button class="q-opt">A quantified measurement of the paper dollar's lost purchasing power — the thesis, not the trade</button>
+        <button class="q-opt">A pricing error by the U.S. Mint</button>
+        <button class="q-opt">Proof gold is overvalued</button>
+      </div>
+      <div class="q-fb">The gap measures the argument. Treating it as an exploitable trade is the frivolous position covered in Section 09 — and it has a 100% loss rate in court.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 ============ -->
+<section class="lesson" id="s4">
+  <div class="sec-label">Section 04</div>
+  <h2>Who Holds the Keys: The Entity Map</h2>
+  <p class="thesis">"Member-owned association" is the branding. The operating reality is four entities orbiting one professional nexus — disclosed in the documents, invisible in the marketing.</p>
+
+  <h3>The Four-Entity Stack</h3>
+  <table class="data">
+    <tr><th>Entity</th><th>Legal Form</th><th>Actual Role</th></tr>
+    <tr><td class="mono">UPMA</td><td>Limited Cooperative Association, 501(c)(6) nonprofit</td><td>Governance shell: member classes, elected board, bylaws. <b>No paid staff.</b> The name on your agreement.</td></tr>
+    <tr><td class="mono">Legal Tender Services PLLC (LTS)</td><td>Law firm / escrow &amp; trust company</td><td>Irrevocable trustee and escrow agent for ALL member metal. Sets the daily Exchange Rate. Runs accounting, settlement, IT, lobbying. Checks are made payable to LTS.</td></tr>
+    <tr><td class="mono">Alpine Gold Exchange</td><td>Wholly-owned subsidiary of Goldback Inc.</td><td>The storefront: enrollment, member service, primary vault, hosts the annual summit where directors are elected.</td></tr>
+    <tr><td class="mono">Goldback Inc.</td><td>For-profit manufacturer/wholesaler</td><td>Designs and wholesales the Goldback (made by Valaurum, which it part-owns). Subsidizes Goldback vault fees. Owns Alpine Gold. Borrows leased member metal for production float.</td></tr>
+  </table>
+  <p>Secondary custody sits with <b>Brinks</b> (arm's-length, institutional) alongside Alpine's own vault. The bylaws designate the manager of LTS as UPMA's general counsel, with trustee and escrow duties vested "irrevocably... ab initio" — the board cannot reclaim them, and removal of general counsel requires a 75% board supermajority.</p>
+
+  <h3>What the Governance Genuinely Gets Right</h3>
+  <ul>
+    <li><b>One member, one vote</b> — regardless of holdings. The opposite of token-weighted plutocracy.</li>
+    <li><b>No debt, ever</b> — the association is prohibited from borrowing. No entity-level rehypothecation.</li>
+    <li><b>Member-witnessed physical audits</b> at least three times a year, reported at member meetings, plus daily internal audits and full insurance.</li>
+    <li><b>No dividends</b> — net earnings can only reduce member fees.</li>
+  </ul>
+
+  <h3>The Private Membership Wrapper</h3>
+  <p>Before the entities, understand the perimeter they all live inside. UPMA operates as a <b>private membership association</b> in function: services are offered only to enrolled members who have contractually agreed to terms, dues, and dispute-resolution provisions — never to the general public. The theory behind PMA structures draws on the First Amendment freedom of association (NAACP v. Alabama and its line): private members conducting private affairs among themselves occupy a different legal posture than a business soliciting the public. That's why everything here is member-to-member — the exchange, the transfers, the merchant network, even the 0% spread is framed as members exchanging with the membership, not a dealer quoting the street.</p>
+  <p><b>What the private wrapper realistically does:</b> it keeps transactions off public retail rails, supports the no-routine-KYC privacy posture, narrows who can even bring a dispute (members bound by venue, mediation, and confidentiality clauses), and reinforces the "not a financial institution, not a dealer" characterization — you can't be a dealer to the public if the public can't buy from you.</p>
+  <p><b>What it does not do</b> — and this is where PMA folklore gets people hurt: private membership is <em>not</em> an immunity spell. Courts have consistently held that PMA status does not exempt an organization from generally applicable law — tax obligations, securities law, health and safety codes, criminal statutes. People have gone to prison operating "private member" medical practices, food operations, and investment clubs on the theory that the wrapper placed them outside jurisdiction. It doesn't. Notice that UPMA's own lawyers clearly know this: rather than resting on bare PMA theory, they built a <b>registered Utah Limited Cooperative Association with 501(c)(6) federal recognition</b>, OFAC compliance representations, anti-tax-shelter clauses, and escrow for all fiat touchpoints. The private membership design is one disciplined layer of a lawful structure — not a claim to be beyond the law. When you hear anyone, in any system, say "we're a PMA so [regulation/tax/reporting] doesn't apply," you are listening to the folklore register, not the paper.</p>
+  <div class="vocab">
+    <div class="vcard"><div class="term">PMA</div><div class="def">Private membership association — services offered only to contractually enrolled members, grounded in freedom of association, not offered to the general public.</div></div>
+    <div class="vcard"><div class="term">CLOSED LOOP</div><div class="def">All exchange happens member-to-member inside the association's ledger. No public offering means no dealer/public-facing regulatory triggers.</div></div>
+    <div class="vcard"><div class="term">LIMITED COOPERATIVE ASSN.</div><div class="def">UPMA's actual legal form — a registered state entity with statutory governance duties. The sober version of the PMA idea: private in operation, formal in law.</div></div>
+    <div class="vcard"><div class="term">THE PMA FALLACY</div><div class="def">The false belief that private membership exempts an organization from generally applicable law. Courts reject it uniformly; relying on it is a folklore trap.</div></div>
+  </div>
+
+  <h3>What Concentration Costs</h3>
+  <p>The same nexus drafts the documents, custodies the metal, prices the metal daily, lawyers the association, and owns the storefront and the flagship product. Members sign conflict waivers covering exactly this. Monthly statements are designated privileged attorney-client communications. None of it is hidden — but every check that trust law normally provides through <em>separation</em> has been replaced by <em>disclosure</em>. The bylaws' most load-bearing sentence — UPMA "is neither a financial institution nor a precious metals dealer" — is the regulatory perimeter: no deposits means no banking law, no dealing means no dealer licensing. Falling outside regulated categories also means falling outside their protections. There is no FDIC here; there is a trust agreement, an insurance policy, and audits.</p>
+
+  <div class="mapper" id="entityMapper">
+    <h4>Interactive: Map the Trust Assumptions</h4>
+    <div class="mhint">For each function, click the entity that actually controls it. This is the exact exercise you should run on every DeFi protocol, exchange, and custodian you ever use.</div>
+    <div class="m-func" data-correct="1">
+      <div class="fq">Who holds legal custody of all member metal?</div>
+      <div class="m-opts"><span class="m-opt">UPMA</span><span class="m-opt">LTS</span><span class="m-opt">Alpine Gold</span><span class="m-opt">Goldback Inc.</span></div>
+      <div class="m-explain">LTS is the irrevocable trustee — legal custody of everything, with physical custody contracted to vaults it selects.</div>
+    </div>
+    <div class="m-func" data-correct="1">
+      <div class="fq">Who sets the daily Exchange Rate (the price oracle)?</div>
+      <div class="m-opts"><span class="m-opt">UPMA board vote</span><span class="m-opt">LTS</span><span class="m-opt">The LBMA</span><span class="m-opt">Members by auction</span></div>
+      <div class="m-explain">One rate, set daily by LTS from spot (10:00–10:15 MST) plus premiums it controls. A centralized oracle — it enables the 0% spread and concentrates pricing power.</div>
+    </div>
+    <div class="m-func" data-correct="2">
+      <div class="fq">Who runs enrollment, member service, and the primary vault?</div>
+      <div class="m-opts"><span class="m-opt">UPMA staff</span><span class="m-opt">Brinks</span><span class="m-opt">Alpine Gold</span><span class="m-opt">True Link</span></div>
+      <div class="m-explain">Alpine Gold — a wholly-owned subsidiary of Goldback Inc. UPMA itself has no paid staff at all.</div>
+    </div>
+    <div class="m-func" data-correct="3">
+      <div class="fq">Who ultimately profits from the Goldback's manufacturing premium and borrows leased metal?</div>
+      <div class="m-opts"><span class="m-opt">UPMA members</span><span class="m-opt">Brinks</span><span class="m-opt">The State of Utah</span><span class="m-opt">Goldback Inc.</span></div>
+      <div class="m-explain">Goldback Inc. wholesales the product, part-owns the manufacturer, subsidizes vaulting to drive adoption, and uses leased member metal as production float — disclosed on the record by Alpine's president.</div>
+    </div>
+    <div class="m-func" data-correct="0">
+      <div class="fq">Who elects the board of directors, one vote each?</div>
+      <div class="m-opts"><span class="m-opt">Qualified members of the people class</span><span class="m-opt">LTS</span><span class="m-opt">Goldback Inc. shareholders</span><span class="m-opt">The Utah legislature</span></div>
+      <div class="m-explain">Members do — genuinely democratic on paper. But elections happen at Alpine Gold's summit, and trustee powers sit outside the board's reach regardless of who wins.</div>
+    </div>
+    <div id="mapperScore"></div>
+  </div>
+
+  <div class="quiz" data-quiz="q4">
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">4.1</span>UPMA itself has how many paid staff?</div>
+      <div class="q-opts">
+        <button class="q-opt">A full operations team in Alpine, Utah</button>
+        <button class="q-opt">Only the general counsel</button>
+        <button class="q-opt">Zero — all operations are performed by LTS and Alpine Gold personnel</button>
+        <button class="q-opt">21 directors on salary</button>
+      </div>
+      <div class="q-fb">The association is a governance shell. The entity you contract with employs nobody; the entities you depend on are incorporated by reference.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">4.2</span>Why can't the UPMA board simply reclaim custody duties from general counsel?</div>
+      <div class="q-opts">
+        <button class="q-opt">Utah law forbids it</button>
+        <button class="q-opt">The bylaws vest trustee and escrow duties in general counsel irrevocably, ab initio</button>
+        <button class="q-opt">Brinks holds a veto</button>
+        <button class="q-opt">It can, by simple majority</button>
+      </div>
+      <div class="q-fb">"Irrevocably... ab initio" — from the beginning, permanently. It's an admin key the governance layer cannot rotate. Removal of the GC personally takes a 75% supermajority.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">4.3</span>The sentence "UPMA is neither a financial institution nor a precious metals dealer" functions as:</div>
+      <div class="q-opts">
+        <button class="q-opt">A marketing slogan</button>
+        <button class="q-opt">An admission of weakness</button>
+        <button class="q-opt">An insurance requirement</button>
+        <button class="q-opt">The regulatory perimeter — placing the system outside banking and dealer law, and outside their protections</button>
+      </div>
+      <div class="q-fb">No deposits = no banking regulation. No dealing = no dealer licensing. The trade-off: no statutory depositor protections either. Your protection is contractual — trust, insurance, audits.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">4.4</span>Which governance feature is genuinely stronger than most crypto projects?</div>
+      <div class="q-opts">
+        <button class="q-opt">One-member-one-vote plus a hard prohibition on the association incurring any debt</button>
+        <button class="q-opt">Anonymous voting by token weight</button>
+        <button class="q-opt">A board appointed by the founder</button>
+        <button class="q-opt">Quarterly dividends to large holders</button>
+      </div>
+      <div class="q-fb">Anti-plutocratic voting and a no-debt rule beat token-weighted governance and leveraged treasuries. Honest analysis credits what a system does well.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">4.5</span>Concentration of roles in one nexus converts structural protection into:</div>
+      <div class="q-opts">
+        <button class="q-opt">Criminal liability</button>
+        <button class="q-opt">Government insurance</button>
+        <button class="q-opt">Disclosure-and-waiver protection — legal, but a weaker guarantee the member should consciously accept</button>
+        <button class="q-opt">Nothing changes</button>
+      </div>
+      <div class="q-fb">Disclosed concentration is lawful and common. But conflict waivers replace independent checks — know which kind of protection you're actually holding.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">4.6</span>What does UPMA's private-membership design actually accomplish — and what does it NOT accomplish?</div>
+      <div class="q-opts">
+        <button class="q-opt">It exempts the association and members from taxes and federal law</button>
+        <button class="q-opt">It keeps transactions member-to-member and off public rails, supporting the privacy posture and non-dealer characterization — but grants zero immunity from generally applicable law</button>
+        <button class="q-opt">It makes the IRS unable to assert jurisdiction</button>
+        <button class="q-opt">Nothing; it's purely branding</button>
+      </div>
+      <div class="q-fb">Private membership is a design discipline, not an immunity spell. Courts uniformly reject "PMA exemption" claims — which is why UPMA's lawyers built a registered cooperative with compliance clauses instead of resting on the folklore. Anyone selling you "PMA = the law doesn't apply" is selling you the trap.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 ============ -->
+<section class="lesson" id="s5">
+  <div class="sec-label">Section 05</div>
+  <h2>How the Network Runs</h2>
+  <p class="thesis">Strip the vocabulary away and UPMA is a permissioned settlement layer: synthetic units, a daily oracle, ledger-level divisibility, and a fiat airlock at the edge.</p>
+
+  <h3>Synthetic Units Built From Federal Coins</h3>
+  <div class="vocab">
+    <div class="vcard"><div class="term">GOLD DOLLAR</div><div class="def">1/50th of a one-ounce Gold Eagle or Buffalo ($50 face). One Gold Dollar = exactly $1 of face value in gold. Divisible to Gold Cents on the ledger.</div></div>
+    <div class="vcard"><div class="term">SILVER DOLLAR</div><div class="def">One one-ounce Silver Eagle, $1 face. Unit and face value align 1:1.</div></div>
+    <div class="vcard"><div class="term">GOLDBACK</div><div class="def">A physical note with 1/1000 oz of gold embedded (patented Valaurum process). Not itself legal tender — a "specie legal tender instrument," convertible into it.</div></div>
+    <div class="vcard"><div class="term">CONSTITUTIONAL SILVER</div><div class="def">Pre-1965 U.S. coin at 371.25 grains fine silver per $1 face — the original 1792 Coinage Act dollar standard. Accepted at steep, condition-tiered haircuts.</div></div>
+    <div class="vcard"><div class="term">EXCHANGE RATE</div><div class="def">Paper dollars per Gold/Silver Dollar, set once daily by LTS from spot plus premiums. One rate for all transactions that day.</div></div>
+    <div class="vcard"><div class="term">PAPER / FIAT DOLLAR</div><div class="def">Federal Reserve Notes, their electronic equivalents, and base-metal coinage. The documents' vocabulary makes the two-currency worldview explicit.</div></div>
+  </div>
+  <p>The Gold Dollar is the clever one: pegging the unit to <b>face value</b> (1/50th of a $50 coin) keeps every account, fee, and transfer inside legal-tender vocabulary while the ledger tracks fractional ownership of vaulted ounces. It's tokenization by contract — the same move as a gold-backed token defining 1 token = 1/1000 oz of a vaulted bar, with statutes instead of smart contracts. And ledger divisibility down to the Gold Cent solves gold's ancient small-change problem the way satoshis solve Bitcoin's: divide the balance, not the metal.</p>
+
+  <h3>The Flow of Funds</h3>
+  <ol>
+    <li><b>In:</b> paper dollars enter escrow with LTS (wire ~24h to clear; checks ~10 days; ACH up to 60 business days — the longest gate in the system).</li>
+    <li><b>Convert:</b> Dollar Cost Averaging is the default — deposits convert daily over one month unless you choose 2 weeks, 1 week, or next-day. Timing control exists, but defaults away from you.</li>
+    <li><b>Rest:</b> converted specie is held in trust, in vaults (Alpine + Brinks), fully insured, audited daily and physically verified by members tri-annually.</li>
+    <li><b>Move:</b> member-to-member transfers settle on the internal ledger under the embedded gold clause. The metal never moves; title does.</li>
+    <li><b>Out:</b> physical withdrawal (minimum one full gold ounce — 50 Gold Dollars — ID required, 2–4 weeks, shipping at your cost, no guarantee on coin year) or paper redemption via check, ACH, wire, or the True Link debit card.</li>
+  </ol>
+
+  <div class="callout warn">
+    <div class="co-tag">The Fiat Airlock</div>
+    <p>The debit card is the system's most honest component: the moment value loads onto it, your metal is <b>liquidated at the daily rate</b> and the card holds paper dollars. "Funds held on the card are no longer backed by gold or silver" — their words. Gold-backed spending power, fiat at the point of sale, and every load of appreciated metal is a disposition (see Section 09). The card issuer's KYC (SSN) kicks in exactly at this bridge — identity lives at the fiat edge, just like crypto on-ramps.</p>
+  </div>
+
+  <div class="quiz" data-quiz="q5">
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">5.1</span>Why is the Gold Dollar defined as 1/50th of a one-ounce coin?</div>
+      <div class="q-opts">
+        <button class="q-opt">Fifty members share each coin</button>
+        <button class="q-opt">The Eagle's face value is $50 — so one Gold Dollar equals exactly one dollar of face value, keeping the unit inside legal-tender vocabulary</button>
+        <button class="q-opt">It matches the gold/silver ratio</button>
+        <button class="q-opt">IRS regulation requires it</button>
+      </div>
+      <div class="q-fb">Face-value pegging is the legal engineering: fractional vault ownership dressed in the statutory language of currency.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">5.2</span>Gold Cent divisibility solves which ancient problem, and how?</div>
+      <div class="q-opts">
+        <button class="q-opt">Counterfeiting, via serial numbers</button>
+        <button class="q-opt">Coin clipping, via milled edges</button>
+        <button class="q-opt">Gold's small-change problem — by dividing the ledger balance instead of the metal, like satoshis for Bitcoin</button>
+        <button class="q-opt">Storage costs, via leasing</button>
+      </div>
+      <div class="q-fb">You can spend $10 of a one-ounce coin because the account divides even though the coin doesn't. Divisibility via ledger is the core trick of every monetary layer built on an indivisible base asset.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">5.3</span>What happens to your gold the moment you load the debit card?</div>
+      <div class="q-opts">
+        <button class="q-opt">It's liquidated at the daily rate — the card holds paper dollars with no metal backing</button>
+        <button class="q-opt">It stays gold and floats with spot</button>
+        <button class="q-opt">It's leased to the card issuer</button>
+        <button class="q-opt">Nothing until you swipe</button>
+      </div>
+      <div class="q-fb">The card is the fiat airlock. Metal in, paper out — and if the metal had appreciated, that load is a taxable disposition.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">5.4</span>Which funding method carries the longest clearing hold?</div>
+      <div class="q-opts">
+        <button class="q-opt">Wire transfer</button>
+        <button class="q-opt">Cashier's check</button>
+        <button class="q-opt">Cash in person</button>
+        <button class="q-opt">ACH — up to 60 business days</button>
+      </div>
+      <div class="q-fb">ACH reversals can trail for weeks, so LTS holds long. Metal may be credited but immovable for two months. Wires clear in ~24 hours — the documents themselves call wires the most secure path.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">5.5</span>The minimum physical gold withdrawal is 50 Gold Dollars. The practical consequence:</div>
+      <div class="q-opts">
+        <button class="q-opt">None; you can always take delivery</button>
+        <button class="q-opt">Accounts below one full ounce have no physical redemption path — paper redemption only, until they accumulate a whole coin</button>
+        <button class="q-opt">Small accounts pay extra fees</button>
+        <button class="q-opt">Silver has the same floor</button>
+      </div>
+      <div class="q-fb">You can't ship 1/50th of a coin. Physical gold access effectively starts at one ounce; silver's floor is one coin (~$40 vs. $4,000+). Know your real exit before you enter.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 ============ -->
+<section class="lesson" id="s6">
+  <div class="sec-label">Section 06</div>
+  <h2>Fees, Premiums &amp; the Liquidity Gate Stack</h2>
+  <p class="thesis">"0% buy/sell spread" is true — inside a window, at a marked-up rate, subject to suspension. The honest picture is a stack of gates, each reasonable alone, that together define what your money can actually do.</p>
+
+  <h3>The 0% Spread, Precisely Stated</h3>
+  <p>Buy $2,000 of vaulted specie today, redeem $2,000 tomorrow (rate unchanged) — genuinely better than any coin dealer's two-sided spread. But three qualifiers live in the fine print: it applies up to roughly <b>$10,000 per rolling month</b> (exchanges and redemptions combined against the same threshold); it can be <b>suspended in extreme market conditions</b> — precisely when you'd want it most; and the daily rate you transact at is <b>not spot</b>. Historical premiums: gold ~5.8% over spot, silver ~20%, Goldbacks spot + $1.00 production + 10%. You buy and sell at the same marked-up rate — the entry premium is real and recoverable only by exiting through the same window. Above the monthly threshold: ~1% spread on excess, Goldbacks haircut 10% from $10K–$100K, and above $100K it's "call for a quote depending on the liquidity condition of the network" — the honest admission that Goldbacks have no deep external market.</p>
+
+  <h3>Custody Is Cheap; Motion Is Priced</h3>
+  <table class="data">
+    <tr><th>Item</th><th>Cost</th><th>Note</th></tr>
+    <tr><td>Vaulted gold, first 10 oz</td><td class="mono">0.05% / month</td><td>~0.6%/yr — comparable to a gold ETF</td></tr>
+    <tr><td>Vaulted gold above 10 oz</td><td class="mono">0.02% / month</td><td>~0.24%/yr — cheaper than GLD</td></tr>
+    <tr><td>Vaulted silver</td><td class="mono">0.05% / month</td><td>Flat, all sizes</td></tr>
+    <tr><td>Goldback accounts</td><td class="mono">Free</td><td>Subsidized by Goldback Inc. — internal transfer pricing, funded by the manufacturing premium you paid on entry</td></tr>
+    <tr><td>Member → merchant transfer</td><td class="mono">1%</td><td>Member → government: 0% — the legal-tender use case is subsidized on purpose</td></tr>
+    <tr><td>Out-of-network specie deposit</td><td class="mono">5–10%</td><td>A bridge toll: metal bought elsewhere pays to enter; buy inside the loop and it's free</td></tr>
+    <tr><td>Constitutional silver deposit</td><td class="mono">75¢ / 56.25¢ per $1 face</td><td>Condition-tiered haircut, adopted after audits found circulated coin up to 10% underweight — a physical-wear "depeg" caught by proof-of-reserves</td></tr>
+    <tr><td>Debit card</td><td class="mono">$10 / month</td><td>Waived at $1,000+/mo deposits or ~1,000 Gold Dollars held</td></tr>
+    <tr><td>Card deposits</td><td class="mono">3.5%</td><td>Never sensible for buying gold — that's most of the premium again</td></tr>
+  </table>
+
+  <h3>The Gate Stack</h3>
+  <p>Homepage version: "sell back at the same price, take possession anytime." Documents version, gates in sequence:</p>
+  <div class="gate-stack">
+    <div class="gate"><span class="gn">G1</span><div><span class="gt">Entry premium</span> — <span class="gd">5.8% gold / 20% silver / ~10%+ Goldbacks over spot, plus 60-business-day ACH clearing holds.</span></div></div>
+    <div class="gate"><span class="gn">G2</span><div><span class="gt">Monthly threshold</span> — <span class="gd">~$10K/month of 0%-spread motion; 1%+ beyond it; deep Goldback exits degrade to 10% or "call us."</span></div></div>
+    <div class="gate"><span class="gn">G3</span><div><span class="gt">Redemption ordering</span> — <span class="gd">redemptions apply against fee-bearing outside Deposits before your clean Contributions. You can't choose the cheap tranche first.</span></div></div>
+    <div class="gate"><span class="gn">G4</span><div><span class="gt">Suspension clause</span> — <span class="gd">the 0% spread can be paused in extreme markets — the specie equivalent of a withdrawal gate.</span></div></div>
+    <div class="gate"><span class="gn">G5</span><div><span class="gt">Physical exit friction</span> — <span class="gd">one-ounce minimum for gold, ID + proof of residency, 2–4 weeks, shipping at your cost, 2 business days notice even for pickup.</span></div></div>
+    <div class="gate"><span class="gn">G6</span><div><span class="gt">Oral amendments</span> — <span class="gd">a board member said publicly the $10K limit is "gone." Maybe large flows are now accommodated — but the fee schedule says otherwise. Until you have it in writing, the written version governs.</span></div></div>
+  </div>
+  <p><b>The lesson generalizes:</b> every system — bank, exchange, DeFi protocol, metals co-op — is "open at rest, gated in motion." Liquidity analysis means mapping the gates before you need them, because the marketing describes the resting state and the gates only appear when you move.</p>
+
+  <div class="quiz" data-quiz="q6">
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">6.1</span>The daily rate members buy and sell at is:</div>
+      <div class="q-opts">
+        <button class="q-opt">LBMA spot exactly</button>
+        <button class="q-opt">Spot minus a member discount</button>
+        <button class="q-opt">Spot plus premiums set by the operator (~5.8% gold, ~20% silver historically)</button>
+        <button class="q-opt">Face value</button>
+      </div>
+      <div class="q-fb">0% spread means both sides transact at the same marked-up rate. The premium is your real entry cost, recovered only by exiting through the same window.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">6.2</span>Why are Goldback accounts vaulted free?</div>
+      <div class="q-opts">
+        <button class="q-opt">Goldback Inc. subsidizes it — funded by the manufacturing premium members already paid, to drive adoption of its product</button>
+        <button class="q-opt">Charity from the association</button>
+        <button class="q-opt">Utah law requires it</button>
+        <button class="q-opt">Goldbacks are too small to weigh</button>
+      </div>
+      <div class="q-fb">"Free" is internal transfer pricing. Follow the subsidy to find the business model — a rule that works on every "free" product in finance.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">6.3</span>The Goldback exit schedule above $10K/month (10% haircut to $100K, then "call for quote") reveals:</div>
+      <div class="q-opts">
+        <button class="q-opt">A pricing error</button>
+        <button class="q-opt">Thin external liquidity — large exits depend on the network itself, like a thin-orderbook token</button>
+        <button class="q-opt">Goldbacks are illegal to sell</button>
+        <button class="q-opt">Nothing; all sizes exit at 0%</button>
+      </div>
+      <div class="q-fb">"Depending on the liquidity condition of the UPMA network" is the honest sentence. Exit depth is an asset property you must test at YOUR size, not the marketing size.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">6.4</span>Audits found circulated junk silver up to 10% underweight, leading to condition-tiered deposit haircuts. The best analogy:</div>
+      <div class="q-opts">
+        <button class="q-opt">A dividend cut</button>
+        <button class="q-opt">An exchange hack</button>
+        <button class="q-opt">A rug pull</button>
+        <button class="q-opt">A depeg discovered by proof-of-reserves — physical wear made face value overstate real backing</button>
+      </div>
+      <div class="q-fb">The audit worked exactly as audits should: it found the gap between nominal and real, and pricing adjusted. That's the system functioning — and a perfect illustration of why verification beats assumption.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">6.5</span>A board member says publicly that the $10K monthly limit is "gone," but the written fee schedule still lists it. What governs?</div>
+      <div class="q-opts">
+        <button class="q-opt">The video — it's more recent</button>
+        <button class="q-opt">Whichever is better for you</button>
+        <button class="q-opt">The written documents, until you obtain the change in writing from the operator</button>
+        <button class="q-opt">Neither; call a lawyer first</button>
+      </div>
+      <div class="q-fb">Oral statements by evangelists are leads to verify, never terms to rely on. Get thresholds in writing; the paper is what a court reads.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 7 ============ -->
+<section class="lesson" id="s7">
+  <div class="sec-label">Section 07</div>
+  <h2>Leases &amp; the GoldELOC: Yield vs. Leverage</h2>
+  <p class="thesis">The system offers two ways to make vaulted metal do more work. One converts your custody into credit. The other is "don't sell, collateralize" — executed in gold.</p>
+
+  <h3>Leasing: Custody → Credit, Priced at 2–3.5%</h3>
+  <p>Members can lease gold, silver, or Goldbacks through the portal: up to <b>2% annually</b> on coin, <b>2–3.5%</b> on Goldbacks, paid monthly in kind. One-year auto-renewing terms; coin leases exit early only with lessee approval plus a <b>2% early-termination fee</b>; Goldback leases exit on 60 days' notice, no fee. The lessee may "quietly use and deploy" the metal at its sole discretion — and Alpine's president confirmed on the record where it goes: leased metal funds the gold that goes into Goldback production.</p>
+  <p>Read that as a balance-sheet event: the moment you lease, your allocated metal becomes a <b>contractual claim on a counterparty</b>. Title remains yours on paper; possession and use do not. The yield is compensation for exactly that conversion — the same structure as the 2021-era crypto earn accounts, at least honestly disclosed and modestly priced. And notice what you're paid to give up: the entire thesis of gold is being nobody's liability. Roughly 2.5% a year (yield plus saved vault fees) is a thin price for surrendering the one property that makes the asset what it is.</p>
+
+  <h3>GoldELOC: The Pawn-Structured Credit Line</h3>
+  <p>The GoldELOC is an equity line of credit: draw fiat loans against your vaulted holdings, underwritten by an LTS-approved lender registered as a Utah financial institution <b>or pawnbroker</b>. The pawn framing isn't cosmetic — it's why there's no credit check and how the product fits Utah licensing. Alpine's president explains it plainly: hand over the watch, take the hundred dollars, redeem the watch when you repay; don't repay, lose the watch.</p>
+  <ul>
+    <li><b>Deposits repay debt first.</b> While a draw is outstanding, every deposit reduces the loan before adding to your holdings. You cannot stack while you owe.</li>
+    <li><b>A liquidation trigger with no stated cure period.</b> The lender may liquidate your holdings when the available balance can't cover the next monthly fee plus required collateral. That's a margin call — and the collateral is marked daily by the operator's own price oracle.</li>
+    <li><b>Monthly fee</b> = APR/12 × loan amount, paid from your holdings automatically.</li>
+  </ul>
+
+  <div class="compare">
+    <div class="col">
+      <h4>Collateralize (GoldELOC / BTC-backed loan)</h4>
+      <ul>
+        <li>You remain the owner; the lender holds a lien</li>
+        <li>No sale → no capital-gains event on the draw</li>
+        <li>Keep full upside on the asset</li>
+        <li>Risks: liquidation trigger, fees, over-borrowing</li>
+        <li>Fully compliant — the legitimate answer to "I need cash but won't sell"</li>
+      </ul>
+    </div>
+    <div class="col bad">
+      <h4>Lease (earn account / gold lease)</h4>
+      <ul>
+        <li>You become the creditor; counterparty uses the asset</li>
+        <li>Yield = payment for surrendering possession</li>
+        <li>Risks: counterparty failure, term locks, exit fees</li>
+        <li>Same structure that broke Celsius/BlockFi depositors</li>
+        <li>Can be a reasonable, disclosed trade — but count it in your credit column, never your vault column</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="co-tag">The BWS Thesis, In Gold</div>
+    <p><b>"Don't sell, collateralize"</b> is asset-agnostic. Borrowing against vaulted gold and borrowing against Bitcoin are the same maneuver: convert the asset's value into spendable liquidity without a disposition, keep every coin, accept a managed liquidation risk. The discipline is identical too — know your collateral ratio, keep a fee buffer, watch the oracle, never borrow near the trigger. The Fannie Mae Bitcoin-mortgage era makes this the defining wealth skill of the decade, and this gold system quietly proves the pattern works.</p>
+  </div>
+
+  <div class="quiz" data-quiz="q7">
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">7.1</span>What does a member actually hold the moment their metal is leased?</div>
+      <div class="q-opts">
+        <button class="q-opt">Allocated metal plus interest</button>
+        <button class="q-opt">A contractual claim on the lessee — credit, not custody, with title on paper but not possession</button>
+        <button class="q-opt">Nothing; the metal is sold</button>
+        <button class="q-opt">An insured deposit</button>
+      </div>
+      <div class="q-fb">Yield is the price of converting custody to credit. The lease agreement is your recourse — not a bar with your name on it.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">7.2</span>Where does leased Goldback metal actually go, per the operator's own public statements?</div>
+      <div class="q-opts">
+        <button class="q-opt">It stays sealed in the vault</button>
+        <button class="q-opt">Into government bonds</button>
+        <button class="q-opt">Into member loans</button>
+        <button class="q-opt">Into Goldback Inc.'s production float — buying the gold that goes into manufactured Goldbacks</button>
+      </div>
+      <div class="q-fb">Confirmed on the record: your lease funds the manufacturer's working capital. Disclosed and coherent — and exactly why you should always ask "who is the borrower of my yield?"</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">7.3</span>While a GoldELOC draw is outstanding, new deposits:</div>
+      <div class="q-opts">
+        <button class="q-opt">Automatically repay the loan before adding anything to your holdings</button>
+        <button class="q-opt">Add to your stack as normal</button>
+        <button class="q-opt">Are rejected</button>
+        <button class="q-opt">Earn lease yield</button>
+      </div>
+      <div class="q-fb">Debt is serviced first, always. You cannot accumulate while you owe — a structural discipline mechanism worth respecting in your own planning.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">7.4</span>The GoldELOC liquidation trigger fires when:</div>
+      <div class="q-opts">
+        <button class="q-opt">Gold's price rises 10%</button>
+        <button class="q-opt">The loan reaches one year old</button>
+        <button class="q-opt">Your available balance can't cover the next monthly fee plus required collateral — a margin call marked by the operator's own daily oracle</button>
+        <button class="q-opt">Never; liquidation is prohibited</button>
+      </div>
+      <div class="q-fb">No stated cure period. Manage it like a DeFi health factor: buffer above the trigger, monitor the mark, never borrow to the edge.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">7.5</span>Why is collateralizing fundamentally different from selling for someone who needs liquidity?</div>
+      <div class="q-opts">
+        <button class="q-opt">It's tax evasion</button>
+        <button class="q-opt">A loan is not a disposition — no capital-gains event, ownership and upside retained, in exchange for managed liquidation risk</button>
+        <button class="q-opt">Loans are always cheaper than taxes</button>
+        <button class="q-opt">There is no difference</button>
+      </div>
+      <div class="q-fb">This is the fully compliant core of "don't sell, collateralize" — the legitimate answer to the exact problem the face-value tax myth (Section 09) solves illegitimately.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 8 ============ -->
+<section class="lesson" id="s8">
+  <div class="sec-label">Section 08</div>
+  <h2>Privacy, Succession &amp; Trust Accounts</h2>
+  <p class="thesis">Identity lives at the edges; inside the loop, you're a ledger entry. But privacy architecture and succession architecture are two different machines — and the second one has defaults that can send your wealth to strangers.</p>
+
+  <h3>Privacy by Structure</h3>
+  <p>Because the association is "not a financial institution," it collects no SSN for ordinary membership — identity verification appears only at pressure points: physical withdrawal (photo ID), address changes (proof of residency), name changes, death transfers, and the debit card (where the issuing bank's KYC, including SSN, applies). Peer-to-peer counterparties see each other's identity by consent; statements are wrapped in attorney-client privilege; the relationship itself is subject to a mutual confidentiality clause. The threat model is external surveillance and discovery — not counterparty anonymity. Structurally identical to crypto: pseudonymous inside the network, fully identified at every fiat bridge.</p>
+  <p><b>What privacy is not:</b> a tax feature. "They don't have the number to report" describes an information-reporting gap. Your self-reporting obligations exist regardless of whether anyone files a form about you — Section 09 is mandatory reading before drawing any comfort from this design.</p>
+
+  <h3>The Succession Machinery</h3>
+  <p>Membership itself is <b>non-transferable and dies with the member</b> — nothing succeeds to it by operation of law. What transfers is the account value, through three designable roles:</p>
+  <div class="vocab">
+    <div class="vcard"><div class="term">JOINT TENANT</div><div class="def">Rights equal to the primary holder and superior to everyone else, during life and after. Added online; removable only by phone with documentation. Functionally a near-irrevocable gift of full control — spouses and true co-owners only.</div></div>
+    <div class="vcard"><div class="term">BENEFICIARY</div><div class="def">Inherits a designated percentage on death (absent a Joint Tenant), upon death certificate. Add and remove freely online.</div></div>
+    <div class="vcard"><div class="term">AGENT</div><div class="def">Acts on the account under a power of attorney or trust document; holds no beneficial interest. The clean role for trust-based structures.</div></div>
+  </div>
+  <p>All three roles must be existing members (funded or not) — estate planning here means onboarding your heirs first.</p>
+
+  <div class="callout warn">
+    <div class="co-tag">The Default Cascade — Read This Twice</div>
+    <p>Trust-account terms specify what happens on death with no designations: assets flow to surviving Partners → then Beneficiaries → and absent both, <b>"pro rata... to Account Holders within the same referral community"</b> as the deceased. Translation: die with an undesignated account and your metal can distribute to <em>whoever referred you and their network</em> — not your family, not your estate. Beneficiary designation takes two minutes in the portal. It is the single highest-leverage action any account holder can take, and the most commonly skipped.</p>
+  </div>
+
+  <h3>Trust Accounts: Power Concentrated, Duties Defined</h3>
+  <p>The trust-tier account makes LTS your <b>co-trustee</b>, with powers worth reading sober: it can amend the agreement, with your continued use of the portal constituting consent; it determines your legal incapacity "in its sole discretion" (court challenge available, at the trust's expense); a 60-day statement-review deadline <b>bars claims regardless of whether LTS used ordinary care</b> — making a monthly statement review a hard calendar habit, not a suggestion; legal services bill at four Gold Dollars per hour (gold-indexed billing — poetic, and increasingly expensive); and the conflict waiver covers LTS serving simultaneously as your co-trustee, the drafter, the system's escrow agent, and counsel to the ecosystem. Against that: fiduciary duties under Utah's trust code, personal liability for bad faith, gross negligence, or self-dealing profits, and full insurance and audit obligations. The powers are broad; the duties are real; the reader's job is to hold both.</p>
+
+  <div class="quiz" data-quiz="q8">
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">8.1</span>Where does identity verification actually live in this system?</div>
+      <div class="q-opts">
+        <button class="q-opt">Full KYC at signup, like a bank</button>
+        <button class="q-opt">Nowhere; it's fully anonymous</button>
+        <button class="q-opt">At the edges — physical withdrawal, address changes, death transfers, and the debit card's issuing bank</button>
+        <button class="q-opt">Only for merchants</button>
+      </div>
+      <div class="q-fb">Pseudonymous in the loop, identified at every bridge — the same architecture as self-custody wallets vs. fiat on-ramps.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">8.2</span>An account holder dies with no Joint Tenant and no Beneficiaries designated. Under the default cascade, the holdings go to:</div>
+      <div class="q-opts">
+        <button class="q-opt">Their estate, through probate</button>
+        <button class="q-opt">Account holders in the same referral community, pro rata</button>
+        <button class="q-opt">The State of Utah</button>
+        <button class="q-opt">The association's charity fund</button>
+      </div>
+      <div class="q-fb">The most consequential default in the documents. Two minutes of beneficiary designation prevents it. Check yours today — whatever the platform.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">8.3</span>Why is adding a Joint Tenant a bigger decision than adding a Beneficiary?</div>
+      <div class="q-opts">
+        <button class="q-opt">A JT gains rights equal to yours immediately and superior to all others, and can only be removed by phone with documentation</button>
+        <button class="q-opt">JTs pay higher fees</button>
+        <button class="q-opt">Beneficiaries can spend the account now</button>
+        <button class="q-opt">There's no difference</button>
+      </div>
+      <div class="q-fb">The asymmetric removal process is the tell: JT is functionally a gift of full present control. Agents + Beneficiaries handle most estate needs with none of that exposure.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">8.4</span>The 60-day statement rule in the trust terms means:</div>
+      <div class="q-opts">
+        <button class="q-opt">Statements arrive every 60 days</button>
+        <button class="q-opt">You have 60 days to fund the account</button>
+        <button class="q-opt">Errors auto-correct after 60 days</button>
+        <button class="q-opt">Claims for unreported errors are barred after 60 days — even if the trustee failed to use ordinary care</button>
+      </div>
+      <div class="q-fb">A hard claims bar independent of fault. The defense is behavioral: review every statement, every month, on a calendar you control.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">8.5</span>"No SSN on file, nothing reported" means, for a member's taxes:</div>
+      <div class="q-opts">
+        <button class="q-opt">Income through the platform is tax-free</button>
+        <button class="q-opt">Nothing — self-reporting obligations exist whether or not any third party files a form</button>
+        <button class="q-opt">Only merchants owe tax</button>
+        <button class="q-opt">Taxes apply only above $10K</button>
+      </div>
+      <div class="q-fb">Privacy architecture ≠ tax exemption. Confusing the two is how members convert a civil mistake into criminal willfulness — Section 09, in full.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 9 ============ -->
+<section class="lesson" id="s9">
+  <div class="sec-label">Section 09</div>
+  <h2>The Tax Boundary</h2>
+  <p class="thesis">Everything in this system survives contact with federal law except one idea — and that idea carries a $5,000 automatic penalty, felony convictions, and a 100% loss rate in court.</p>
+
+  <h3>The Face-Value Position, Named and Condemned</h3>
+  <p>IRS Internal Revenue Bulletin 2010-17, frivolous position #13: claiming that in a gold or silver coin transaction, the amount realized is the coins' <b>face value</b> rather than fair market value. Under 26 U.S.C. § 6702, filing on that basis triggers an automatic <b>$5,000 penalty</b> per submission unless withdrawn within 30 days of notice. And the enforcement record is worse than the penalty: Robert Kahre paid workers in Eagles at face value for years, reported accordingly, and was convicted on dozens of federal counts — <b>15 years</b>. Courts have held, uniformly and without exception, that income received in gold is measured at fair market value on receipt.</p>
+  <p>The seductive version of the argument goes: nominalism says a dollar is a dollar (Thompson, Crummey) — so if the IRS must credit a Silver Eagle at $1 when tendered, symmetry demands they can only tax it at $1 when received. But nominalism governs <b>tender and discharge of debts</b>; it has never governed <b>income measurement</b>, which runs on fair market value, full stop. Notice the asymmetry cuts against the holder both ways: tender an Eagle, credited $50; receive an Eagle, taxed at $4,000+. Everyone who has litigated the gap — in either direction — has lost.</p>
+  <p>And the "nobody's tracking it, report it if you want" version is worse than wrong: structuring around non-reporting is precisely what converts a civil position into <b>criminal willfulness</b>. Kahre's sentence wasn't for a legal misunderstanding — it was for a system designed around the gap.</p>
+
+  <h3>What Actually Survives</h3>
+  <div class="compare">
+    <div class="col">
+      <h4>Legitimate — use freely</h4>
+      <ul>
+        <li><b>Gresham's strategy:</b> spend paper, save specie. A savings behavior, not a tax position.</li>
+        <li><b>Gold clauses:</b> contracting to be paid in specie (post-1977) — enforceable, but income is still FMV.</li>
+        <li><b>State-layer treatment:</b> sales-tax exemptions, state income-tax carve-outs, the Thorne intent doctrine.</li>
+        <li><b>Collateralize, don't sell:</b> loans are not dispositions. The GoldELOC and BTC-backed borrowing are the compliant answer to "I need liquidity but won't sell."</li>
+      </ul>
+    </div>
+    <div class="col bad">
+      <h4>Radioactive — never</h4>
+      <ul>
+        <li>Reporting specie income at face value (frivolous position #13; $5,000 per filing)</li>
+        <li>Not reporting because "there's no SSN / no form / no tracking" (the willfulness trap)</li>
+        <li>Treating card loads of appreciated metal as non-events (each load is a disposition at FMV)</li>
+        <li>Taking tax theory from evangelists whose own contracts contain "this is not an abusive tax shelter" clauses disavowing it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="co-tag">Why The System's Own Documents Agree</div>
+    <p>The member agreement and trust terms both contain explicit anti-tax-shelter clauses, and the Exchange Rate mechanism itself concedes the whole point: the system marks Gold Dollars to <b>market</b> every day, not to face value. The architecture prices reality even while the vocabulary honors nominalism. The lawyers built a compliant machine. When someone associated with the system narrates a non-compliant theory of it, the documents — not the narration — are what protect you, and only if you follow them.</p>
+  </div>
+
+  <div class="quiz" data-quiz="q9">
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">9.1</span>You're paid one gold coin (face $50, market $4,000) for consulting work. Your reportable income is:</div>
+      <div class="q-opts">
+        <button class="q-opt">$50 — it's legal tender at face value</button>
+        <button class="q-opt">$4,000 — fair market value on receipt, without exception</button>
+        <button class="q-opt">$0 until you sell the coin</button>
+        <button class="q-opt">Whatever you and the payer agree</button>
+      </div>
+      <div class="q-fb">Income in property or specie is measured at FMV when received. The face-value answer is frivolous position #13 — automatic $5,000 penalty, and at scale, Kahre's 15 years.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">9.2</span>Nominalism ("a dollar is a dollar") governs which question?</div>
+      <div class="q-opts">
+        <button class="q-opt">Income measurement</button>
+        <button class="q-opt">Capital gains rates</button>
+        <button class="q-opt">Tender and discharge of debts — never income measurement, which runs on fair market value</button>
+        <button class="q-opt">Sales tax only</button>
+      </div>
+      <div class="q-fb">The two doctrines answer different questions. Blending them is the entire frivolous position — and the asymmetry always resolves against the holder.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">9.3</span>What turned Kahre's face-value scheme from a civil dispute into a criminal case?</div>
+      <div class="q-opts">
+        <button class="q-opt">Willfulness — a system deliberately structured around non-reporting</button>
+        <button class="q-opt">The dollar amounts involved</button>
+        <button class="q-opt">Using foreign coins</button>
+        <button class="q-opt">Failing to pay state taxes</button>
+      </div>
+      <div class="q-fb">"Nobody's tracking it" reasoning is the willfulness evidence. Good-faith legal error is civil; designed evasion is criminal.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">9.4</span>Loading $2,000 of appreciated gold onto the debit card is:</div>
+      <div class="q-opts">
+        <button class="q-opt">A non-event; it's still your money</button>
+        <button class="q-opt">Tax-free under Utah law</button>
+        <button class="q-opt">Deferred until you spend the card</button>
+        <button class="q-opt">A disposition of the metal at FMV — gain is realized at the load, federally, regardless of state treatment</button>
+      </div>
+      <div class="q-fb">The card is the fiat airlock, and the airlock is a taxable doorway. The compliant alternative for recurring liquidity is the collateralized draw — a loan, not a sale.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">9.5</span>The single fully-compliant strategy that captures most of what the face-value myth falsely promises:</div>
+      <div class="q-opts">
+        <button class="q-opt">Structuring payments under $10,000</button>
+        <button class="q-opt">Don't sell, collateralize — borrow against the asset; a loan is not a disposition and triggers no gain</button>
+        <button class="q-opt">Reporting at face value but keeping records</button>
+        <button class="q-opt">Holding through an anonymous account</button>
+      </div>
+      <div class="q-fb">Liquidity without a taxable event, ownership and upside retained, fully legal — in gold via the pawn-structured credit line, in Bitcoin via collateralized lending. The legitimate version was here all along.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<!-- ============ SECTION 10 ============ -->
+<section class="lesson" id="s10">
+  <div class="sec-label">Section 10 &middot; Capstone</div>
+  <h2>Documents vs. Folklore</h2>
+  <p class="thesis">Twenty-three source documents deep, one pattern rules them all: the paper is careful and compliant; the oral tradition around it drifts from imprecise to false to dangerous. Learning to tell the registers apart is the skill this entire course exists to teach.</p>
+
+  <h3>The Three Registers</h3>
+  <table class="data">
+    <tr><th>Register</th><th>Examples From This Case</th><th>How to Treat It</th></tr>
+    <tr><td class="mono">THE PAPER</td><td>Bylaws, member agreement, trust terms, fee schedule, common definitions — anti-tax-shelter clauses, market-marked exchange rates, disclosed conflicts, defined liquidation triggers</td><td>Binding. This is what a court reads and what protects (and limits) you. Read every word before signing; re-read when it "updates by continued use."</td></tr>
+    <tr><td class="mono">OPERATOR SPEECH</td><td>Executive presentations: "kind of like a gold bank," "unallocated" used loosely for a fully-reserved pool, honest disclosures about the card and the lease pipeline</td><td>Directionally useful; verify anything that contradicts or exceeds the paper. Loose vocabulary from the top is a flag to ask precise questions.</td></tr>
+    <tr><td class="mono">EVANGELIST FOLKLORE</td><td>"We are a bank." "The IRS is an agency of the Federal Reserve." "Report the $50 face — if you report it at all." "The limits are gone." "I guarantee no confiscation."</td><td>Discard legal and tax theory entirely. Treat operational claims as leads to confirm in writing. The system's own documents disavow the tax theory its promoters narrate.</td></tr>
+  </table>
+
+  <h3>The Verdict, Both Hands Open</h3>
+  <div class="compare">
+    <div class="col">
+      <h4>What UPMA genuinely gets right</h4>
+      <ul>
+        <li>100% reserves, no entity debt, daily audits plus tri-annual member-witnessed physical audits, full insurance</li>
+        <li>Custody costs at or below gold-ETF levels, with physical redemption rights ETFs don't offer</li>
+        <li>Real constitutional and statutory foundation; a working gold clause network; a compliant collateralized-credit product</li>
+        <li>Democratic one-member-one-vote governance; documents that disclose their own conflicts</li>
+      </ul>
+    </div>
+    <div class="col bad">
+      <h4>What the reader must carry</h4>
+      <ul>
+        <li>Extreme role concentration under conflict waivers — reputational protection, not structural</li>
+        <li>Liquidity that is capped, premium-loaded, suspendable, and thin at size for Goldbacks</li>
+        <li>Leasing that converts custody to credit for ~2.5%/yr</li>
+        <li>A default succession cascade that can route your wealth to your referral network</li>
+        <li>A promotional culture whose tax folklore can put followers in federal prison</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The Rosetta Stone: Gold System ↔ Digital Assets</h3>
+  <table class="data">
+    <tr><th>UPMA Concept</th><th>Digital Asset Twin</th></tr>
+    <tr><td>Closed-loop member ledger, vaulted reserves</td><td class="mono">Permissioned L1 with proof-of-reserves</td></tr>
+    <tr><td>Daily Exchange Rate set by LTS</td><td class="mono">Centralized price oracle</td></tr>
+    <tr><td>Gold Cents on a whole-ounce base</td><td class="mono">Satoshis on a whole-coin base</td></tr>
+    <tr><td>Out-of-network deposit fees (5–10%)</td><td class="mono">Bridge tolls onto a closed chain</td></tr>
+    <tr><td>0% spread window + suspension clause</td><td class="mono">AMM at oracle price + withdrawal gate</td></tr>
+    <tr><td>Metal leasing at 2–3.5%</td><td class="mono">CeFi earn accounts (custody → credit)</td></tr>
+    <tr><td>GoldELOC pawn-structured credit line</td><td class="mono">Overcollateralized DeFi loan / BTC-backed mortgage</td></tr>
+    <tr><td>KYC at withdrawal and card only</td><td class="mono">Pseudonymous wallet + KYC'd on-ramp</td></tr>
+    <tr><td>Junk-silver wear haircuts after audit</td><td class="mono">Depeg discovered by proof-of-reserves</td></tr>
+    <tr><td>Quintric-style gold tokens, LTS as mint/redeem</td><td class="mono">RWA tokenization with in-kind redemption</td></tr>
+  </table>
+  <p>Two monetary rebellions — one anchored in 1792 coinage law, one in cryptography — independently converged on the same architecture, the same trade-offs, and the same failure modes. Master the analysis once and you own it everywhere: <b>map the entities, find the oracle, stack the gates, sort custody from credit, designate your beneficiaries, and trust the paper over the pitch.</b></p>
+
+  <div class="callout">
+    <div class="co-tag">Your Graduation Checklist — Apply to ANY System</div>
+    <p>① Who holds legal title to my asset, and under what instrument? ② Who sets the price I transact at? ③ What are ALL the gates between my balance and cash, at my size, in a crisis? ④ Is any of my "balance" actually a loan to someone — and to whom? ⑤ What happens to my account if I die tonight? ⑥ Does anything anyone told me contradict the documents — and did I get the difference in writing? If you can answer all six, you're no longer the product. You're the analyst.</p>
+  </div>
+
+  <div class="quiz" data-quiz="q10">
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">10.1</span>The bylaws say UPMA "is neither a financial institution nor a precious metals dealer." A board member says publicly "we are a bank, the only bank." Which statement matters, and why?</div>
+      <div class="q-opts">
+        <button class="q-opt">The board member's — he's elected</button>
+        <button class="q-opt">Neither; it's semantics</button>
+        <button class="q-opt">The bylaws — the written characterization is the regulatory perimeter the entire structure depends on, and the paper governs</button>
+        <button class="q-opt">Whichever a member prefers</button>
+      </div>
+      <div class="q-fb">Folklore contradicting the load-bearing sentence of the legal structure is the clearest possible example of why the paper wins. Also a reminder: enthusiasm is not authority.</div>
+    </div>
+    <div class="q-item" data-answer="0">
+      <div class="q-text"><span class="qn">10.2</span>The correct disposition of tax or legal theory heard from a system's promoters:</div>
+      <div class="q-opts">
+        <button class="q-opt">Discard it entirely; rely on the documents and independent professionals</button>
+        <button class="q-opt">Follow it if the promoter is on the board</button>
+        <button class="q-opt">Follow it if it saves money</button>
+        <button class="q-opt">Average it with the documents</button>
+      </div>
+      <div class="q-fb">Operational claims → verify in writing. Legal/tax theory → discard. The system's own contracts contain clauses disavowing the folklore; only one register protects you.</div>
+    </div>
+    <div class="q-item" data-answer="3">
+      <div class="q-text"><span class="qn">10.3</span>UPMA's daily Exchange Rate maps to which digital-asset component?</div>
+      <div class="q-opts">
+        <button class="q-opt">A validator set</button>
+        <button class="q-opt">A liquidity pool</button>
+        <button class="q-opt">A hardware wallet</button>
+        <button class="q-opt">A centralized price oracle — one party's daily mark that all transactions settle against</button>
+      </div>
+      <div class="q-fb">Find the oracle in every system you analyze. Whoever sets the mark sets your collateral value, your exit price, and your margin call.</div>
+    </div>
+    <div class="q-item" data-answer="1">
+      <div class="q-text"><span class="qn">10.4</span>What makes the two monetary rebellions — specie networks and crypto — genuinely convergent rather than superficially similar?</div>
+      <div class="q-opts">
+        <button class="q-opt">Both use the word "gold"</button>
+        <button class="q-opt">Both independently arrived at the same architecture and failure modes: reserves + ledger divisibility + oracles + gated liquidity + the custody/credit fork</button>
+        <button class="q-opt">Both are run from Utah</button>
+        <button class="q-opt">Both are tax-exempt</button>
+      </div>
+      <div class="q-fb">Same problem — make a scarce bearer asset function as daily money — forces the same solutions. Which is why one analytical toolkit covers both.</div>
+    </div>
+    <div class="q-item" data-answer="2">
+      <div class="q-text"><span class="qn">10.5</span>Of the six graduation-checklist questions, which one is most often fatal to skip — in this system and in crypto alike?</div>
+      <div class="q-opts">
+        <button class="q-opt">Who sets the price?</button>
+        <button class="q-opt">What are the fees?</button>
+        <button class="q-opt">Is my "balance" custody or credit — and what happens to it, and to my heirs, when something fails?</button>
+        <button class="q-opt">What's the brand reputation?</button>
+      </div>
+      <div class="q-fb">Every catastrophic loss in this course — goldsmith runs, Celsius, undesignated beneficiary cascades, leased metal in a failed counterparty — traces to skipping the custody/credit/succession questions until the day they answered themselves.</div>
+    </div>
+    <div class="quiz-result"></div>
+    <button class="quiz-reset">Retake Quiz</button>
+  </div>
+</section>
+
+<footer>
+  <div class="f-mark">BLOCK WALL STREET</div>
+  <p>Sound Money Structures Series &middot; Education for community wealth. This course is educational analysis only — not legal, tax, or investment advice. Case-study details reflect source documents reviewed as of mid-2026; rates, premiums, thresholds, and terms change. Always verify against current primary documents and consult independent counsel and tax professionals before acting. Price action is noise. Structural adoption is the signal. Don't sell — collateralize.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* progress bar */
+  var bar=document.getElementById('progressBar');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement;
+    var pct=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+    bar.style.width=pct+'%';
+  },{passive:true});
+
+  /* scoped quiz engine */
+  var quizzes=document.querySelectorAll('.quiz');
+  quizzes.forEach(function(quiz){
+    var items=quiz.querySelectorAll('.q-item');
+    var result=quiz.querySelector('.quiz-result');
+    var resetBtn=quiz.querySelector('.quiz-reset');
+    var qid=quiz.getAttribute('data-quiz');
+    var answered=0, correct=0;
+
+    function finish(){
+      result.textContent='SCORE: '+correct+' / '+items.length+(correct===items.length?'  — PERFECT. THE ANALYST IS IN.':correct>=Math.ceil(items.length*0.6)?'  — PASSED. REVIEW THE MISSES.':'  — REVIEW THE SECTION AND RETAKE.');
+      result.classList.add('show');
+      if(correct>=Math.ceil(items.length*0.6)){
+        var idx=parseInt(qid.replace('q',''),10);
+        var link=document.querySelectorAll('.toc-grid a')[idx-1];
+        if(link)link.classList.add('completed');
+      }
+    }
+
+    function wire(){
+      answered=0;correct=0;
+      items.forEach(function(item){
+        var ans=parseInt(item.getAttribute('data-answer'),10);
+        var opts=item.querySelectorAll('.q-opt');
+        var fb=item.querySelector('.q-fb');
+        opts.forEach(function(btn,i){
+          btn.onclick=function(){
+            opts.forEach(function(b){b.disabled=true;});
+            if(i===ans){btn.classList.add('sel-correct');correct++;}
+            else{btn.classList.add('sel-wrong');opts[ans].classList.add('reveal');}
+            fb.classList.add('show');
+            answered++;
+            if(answered===items.length)finish();
+          };
+        });
+      });
+    }
+
+    resetBtn.addEventListener('click',function(){
+      items.forEach(function(item){
+        item.querySelectorAll('.q-opt').forEach(function(b){
+          b.disabled=false;b.classList.remove('sel-correct','sel-wrong','reveal');
+        });
+        item.querySelector('.q-fb').classList.remove('show');
+      });
+      result.classList.remove('show');
+      wire();
+    });
+
+    wire();
+  });
+
+  /* entity mapper */
+  var mapper=document.getElementById('entityMapper');
+  if(mapper){
+    var funcs=mapper.querySelectorAll('.m-func');
+    var scoreEl=document.getElementById('mapperScore');
+    var mDone=0,mRight=0;
+    funcs.forEach(function(f){
+      var c=parseInt(f.getAttribute('data-correct'),10);
+      var opts=f.querySelectorAll('.m-opt');
+      var ex=f.querySelector('.m-explain');
+      opts.forEach(function(o,i){
+        o.addEventListener('click',function(){
+          if(o.classList.contains('disabled'))return;
+          opts.forEach(function(x){x.classList.add('disabled');});
+          if(i===c){o.classList.add('correct');mRight++;}
+          else{o.classList.add('wrong');opts[c].classList.add('correct');}
+          ex.classList.add('show');
+          mDone++;
+          if(mDone===funcs.length){
+            scoreEl.textContent='TRUST MAP: '+mRight+' / '+funcs.length+' functions correctly attributed. '+(mRight===funcs.length?'You just did more due diligence than most members ever will.':'Re-read the entity table above — every miss is a trust assumption you were holding without knowing it.');
+          }
+        });
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
